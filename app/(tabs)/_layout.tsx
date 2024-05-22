@@ -1,35 +1,46 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { View, Text, Button } from "react-native";
+import React from "react";
+import { Tabs, router } from "expo-router";
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function _layout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: "orange" }}>
       <Tabs.Screen
-        name="index"
+        name="account"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" size={24} color={color} />
           ),
+          title: "Account",
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="wpexplorer" size={24} color={color} />
           ),
+          title: "Explore",
+        }}
+      />
+      <Tabs.Screen
+        name="feed/index"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="feed" size={24} color={color} />
+          ),
+          title: "Feed",
+          headerRight: () => (
+            <Button title="Create" onPress={() => router.push("/feed/new")} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="feed/new"
+        options={{
+          href: null,
         }}
       />
     </Tabs>
